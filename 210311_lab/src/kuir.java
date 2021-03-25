@@ -6,7 +6,7 @@ import org.xml.sax.SAXException;
 
 public class kuir {
 
-	public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
+	public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException, ClassNotFoundException {
 		
 		try {
 			System.out.println("test main");
@@ -17,7 +17,12 @@ public class kuir {
 			case "-k":
 				makeKeyword.make_keyword(args[1]);
 				break;
+			case "-i":
+				indexer.make_index(args[1]);
+				break;
+
 			}
+			
 
 		}
 		catch(IndexOutOfBoundsException e) {
