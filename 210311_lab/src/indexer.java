@@ -66,7 +66,6 @@ public class indexer {
         			//System.out.println("존재"); //test
         			//System.out.println(arr_key.indexOf(row[j]));
         			
-        		
         			count.set(arr_key.indexOf(row[j]), count.get(arr_key.indexOf(row[j]))+1);
         			ArrayList<String> row2=new ArrayList<>();
         			row2=tf.get(arr_key.indexOf(row[j]));
@@ -91,23 +90,22 @@ public class indexer {
         }
         
         //test:df 출력
-        for(int k=0;k<arr_key.size();k++) {
-        	System.out.println(arr_key.get(k)+" "+count.get(k));
-        }
-        
+//        for(int k=0;k<arr_key.size();k++) {
+//        	System.out.println(arr_key.get(k)+" "+count.get(k));
+//        }
         
         // tf test
-        for(int k=0;k<tf.size();k++) {
-        	ArrayList<String> row= tf.get(k);
-        	
-        	System.out.print(arr_key.get(k));
-        	
-        	for(int j=0;j<row.size();j++) {
-        		System.out.print(":"+row.get(j));
-        	}
-        	System.out.println(" ");
-        	
-        }
+//        for(int k=0;k<tf.size();k++) {
+//        	ArrayList<String> row= tf.get(k);
+//        	
+//        	System.out.print(arr_key.get(k));
+//        	
+//        	for(int j=0;j<row.size();j++) {
+//        		System.out.print(":"+row.get(j));
+//        	}
+//        	System.out.println(" ");
+//        	
+//        }
         
 		//파일에 객체 저장
 		FileOutputStream fileStream = new FileOutputStream("./index.post");
@@ -124,19 +122,21 @@ public class indexer {
 			for(int j=0;j<row.size();j+=2) {
 				
 				s.add(row.get(j));
-				
-				System.out.println(arr_key.get(i)+":"+count.get(i));
+				//System.out.println(arr_key.get(i)+":"+count.get(i));
 				
 				double tf_idf=(Double.parseDouble(row.get(j+1)))*(Math.log(5.0/(double)count.get(i)));
+				
+				tf_idf=Math.round(tf_idf*100)/100.0;
 				s.add(Double.toString(tf_idf));
 			}
 			
 			hashmap.put(arr_key.get(i),s);
 			
-			for(int k=0;k<s.size();k++) {
-				System.out.print(s.get(k)+" ");
-			}
-			System.out.println();
+			//test
+//			for(int k=0;k<s.size();k++) {
+//				System.out.print(s.get(k)+" ");
+//			}
+//			System.out.println();
 		}
 		
 		
