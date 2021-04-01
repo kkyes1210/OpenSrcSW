@@ -9,7 +9,6 @@ public class kuir {
 	public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException, ClassNotFoundException {
 		
 		try {
-			System.out.println("test main");
 			switch(args[0]) {
 			case "-c":
 				makeCollection.make_Collection(args[1]);
@@ -20,7 +19,9 @@ public class kuir {
 			case "-i":
 				indexer.make_index(args[1]);
 				break;
-
+			case "-s":
+				seracher.make_serach(args[1],args[2],args[3]);
+				break;
 			}
 			
 
