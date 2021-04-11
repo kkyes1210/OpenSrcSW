@@ -28,7 +28,7 @@ import org.xml.sax.SAXException;
 public class seracher {
 	
 
-	public static void CalcSim(double[] a_r,Iterator<String> its,HashMap hm,ArrayList<String> w) {
+	public static void InnerProduct(double[] a_r,Iterator<String> its,HashMap hm,ArrayList<String> w) {
 
 		while(its.hasNext()) {
 			String key=its.next();
@@ -70,7 +70,7 @@ public class seracher {
 		double[] arr_value= {0,0,0,0,0};
 		
 
-		CalcSim(arr_value,it,hashMap2,word);
+		InnerProduct(arr_value,it,hashMap2,word);
 //		for(int k=0;k<arr_value.length;k++)
 //			System.out.println(arr_value[k]);
 		
