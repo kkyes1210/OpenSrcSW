@@ -27,6 +27,35 @@ import org.xml.sax.SAXException;
 
 public class seracher {
 	
+	public static void CalcSim(double[] a_r,Iterator<String> its,HashMap hm,ArrayList<String> w) {
+		
+		double[] v= {0,0,0,0,0}; //inner product
+		double[] d_v= {0,0,0,0,0};
+		int[] d_i= {0,0,0,0,0};
+		
+		while(its.hasNext()) {
+			String key=its.next();
+			Object value=hm.get(key);
+			//System.out.println(key+"->"+value); //test
+			
+			if(w.contains(key)) {
+				//System.out.println(key+value);
+				ArrayList<String> row=(ArrayList<String>) value;
+				for(int k=0;k<row.size();k=k+2) {
+					v[Integer.parseInt(row.get(k))]=v[Integer.parseInt(row.get(k))]+Double.parseDouble(row.get(k+1));
+					//v[Integer.parseInt(row.get(k))]=Math.round(v[Integer.parseInt(row.get(k))]*100)/100.0;
+					
+					d_i[Integer.parseInt(row.get(k))]++;
+					d_v[Integer.parseInt(row.get(k))]=d_v[Integer.parseInt(row.get(k))]+Math.pow(Double.parseDouble(row.get(k+1)), 2);
+				}
+			}
+		}
+		for(int i=0;i<5;i++) {
+			if(v[i]!=0) 
+				a_r[i]=v[i]/((Math.sqrt(d_v[i]))*(Math.sqrt(d_i[i])));
+		}
+	}
+	
 	public static void make_serach(String file,String q,String query) throws IOException, ClassNotFoundException, ParserConfigurationException, SAXException {
 
 		ArrayList<String> word =new ArrayList();
@@ -49,21 +78,7 @@ public class seracher {
 		
 		double[] arr_value= {0,0,0,0,0};
 		
-		while(it.hasNext()) {
-			String key=it.next();
-			Object value=hashMap2.get(key);
-			//System.out.println(key+"->"+value); //test
-			
-			if(word.contains(key)) {
-				//System.out.println(key+value);
-				ArrayList<String> row=(ArrayList<String>) value;
-				for(int k=0;k<row.size();k=k+2) {
-					//arr_value[Integer.parseInt(row.get(k))]=Math.round(arr_value[Integer.parseInt(row.get(k))]*100)/100.0+Math.round(Double.parseDouble(row.get(k+1))*100)/100.0;
-					arr_value[Integer.parseInt(row.get(k))]=arr_value[Integer.parseInt(row.get(k))]+Double.parseDouble(row.get(k+1));
-					arr_value[Integer.parseInt(row.get(k))]=Math.round(arr_value[Integer.parseInt(row.get(k))]*100)/100.0;
-				}
-			}
-		}
+		CalcSim(arr_value,it,hashMap2,word);
 //		for(int k=0;k<arr_value.length;k++)
 //			System.out.println(arr_value[k]);
 		
