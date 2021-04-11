@@ -27,26 +27,13 @@ import org.xml.sax.SAXException;
 
 public class seracher {
 	
-
-	public static void InnerProduct(double[] a_r,Iterator<String> its,HashMap hm,ArrayList<String> w) {
-
-		while(its.hasNext()) {
-			String key=its.next();
-			Object value=hm.get(key);
-			//System.out.println(key+"->"+value); //test
-			
-			if(w.contains(key)) {
-				//System.out.println(key+value);
-				ArrayList<String> row=(ArrayList<String>) value;
-				for(int k=0;k<row.size();k=k+2) {
-					//arr_value[Integer.parseInt(row.get(k))]=Math.round(arr_value[Integer.parseInt(row.get(k))]*100)/100.0+Math.round(Double.parseDouble(row.get(k+1))*100)/100.0;
-					a_r[Integer.parseInt(row.get(k))]=a_r[Integer.parseInt(row.get(k))]+Double.parseDouble(row.get(k+1));
-					a_r[Integer.parseInt(row.get(k))]=Math.round(a_r[Integer.parseInt(row.get(k))]*100)/100.0;
-				}
-			}
+	public static void CalcSim(ArrayList<String> r, double[] a_r) {
+		for(int k=0;k<r.size();k=k+2) {
+			//arr_value[Integer.parseInt(row.get(k))]=Math.round(arr_value[Integer.parseInt(row.get(k))]*100)/100.0+Math.round(Double.parseDouble(row.get(k+1))*100)/100.0;
+			a_r[Integer.parseInt(r.get(k))]=a_r[Integer.parseInt(r.get(k))]+Double.parseDouble(r.get(k+1));
+			a_r[Integer.parseInt(r.get(k))]=Math.round(a_r[Integer.parseInt(r.get(k))]*100)/100.0;
 		}
 	}
-	
 	public static void make_serach(String file,String q,String query) throws IOException, ClassNotFoundException, ParserConfigurationException, SAXException {
 
 		ArrayList<String> word =new ArrayList();
@@ -68,9 +55,17 @@ public class seracher {
 		Iterator<String> it =hashMap2.keySet().iterator();
 		
 		double[] arr_value= {0,0,0,0,0};
-		
-
-		InnerProduct(arr_value,it,hashMap2,word);
+		while(it.hasNext()) {
+			String key=it.next();
+			Object value=hashMap2.get(key);
+			//System.out.println(key+"->"+value); //test
+			
+			if(word.contains(key)) {
+				//System.out.println(key+value);
+				ArrayList<String> row=(ArrayList<String>) value;
+				CalcSim(row,arr_value);
+			}
+		}
 //		for(int k=0;k<arr_value.length;k++)
 //			System.out.println(arr_value[k]);
 		
