@@ -27,32 +27,11 @@ import org.xml.sax.SAXException;
 
 public class seracher {
 	
-	public static void CalcSim(double[] a_r,Iterator<String> its,HashMap hm,ArrayList<String> w) {
-		
-		double[] v= {0,0,0,0,0}; //inner product
-		double[] d_v= {0,0,0,0,0};
-		int[] d_i= {0,0,0,0,0};
-		
-		while(its.hasNext()) {
-			String key=its.next();
-			Object value=hm.get(key);
-			//System.out.println(key+"->"+value); //test
-			
-			if(w.contains(key)) {
-				//System.out.println(key+value);
-				ArrayList<String> row=(ArrayList<String>) value;
-				for(int k=0;k<row.size();k=k+2) {
-					v[Integer.parseInt(row.get(k))]=v[Integer.parseInt(row.get(k))]+Double.parseDouble(row.get(k+1));
-					//v[Integer.parseInt(row.get(k))]=Math.round(v[Integer.parseInt(row.get(k))]*100)/100.0;
-					
-					d_i[Integer.parseInt(row.get(k))]++;
-					d_v[Integer.parseInt(row.get(k))]=d_v[Integer.parseInt(row.get(k))]+Math.pow(Double.parseDouble(row.get(k+1)), 2);
-				}
-			}
-		}
-		for(int i=0;i<5;i++) {
-			if(v[i]!=0) 
-				a_r[i]=v[i]/((Math.sqrt(d_v[i]))*(Math.sqrt(d_i[i])));
+	public static void CalcSim(ArrayList<String> r, double[] a_r) {
+		for(int k=0;k<r.size();k=k+2) {
+			//arr_value[Integer.parseInt(row.get(k))]=Math.round(arr_value[Integer.parseInt(row.get(k))]*100)/100.0+Math.round(Double.parseDouble(row.get(k+1))*100)/100.0;
+			a_r[Integer.parseInt(r.get(k))]=a_r[Integer.parseInt(r.get(k))]+Double.parseDouble(r.get(k+1));
+			a_r[Integer.parseInt(r.get(k))]=Math.round(a_r[Integer.parseInt(r.get(k))]*100)/100.0;
 		}
 	}
 	
@@ -78,7 +57,30 @@ public class seracher {
 		
 		double[] arr_value= {0,0,0,0,0};
 		
-		CalcSim(arr_value,it,hashMap2,word);
+		double[] d_v= {0,0,0,0,0};
+		int[] d_i= {0,0,0,0,0};
+		
+		while(it.hasNext()) {
+			String key=it.next();
+			Object value=hashMap2.get(key);
+			//System.out.println(key+"->"+value); //test
+			
+			if(word.contains(key)) {
+				//System.out.println(key+value);
+				ArrayList<String> row=(ArrayList<String>) value;
+				CalcSim(row,arr_value);
+				for(int k=0;k<row.size();k=k+2) {
+					
+					d_i[Integer.parseInt(row.get(k))]++;
+					d_v[Integer.parseInt(row.get(k))]=d_v[Integer.parseInt(row.get(k))]+Math.pow(Double.parseDouble(row.get(k+1)), 2);
+				}
+			}
+		}
+		
+		for(int i=0;i<5;i++) {
+			if(arr_value[i]!=0) 
+				arr_value[i]=arr_value[i]/((Math.sqrt(d_v[i]))*(Math.sqrt(d_i[i])));
+		}
 //		for(int k=0;k<arr_value.length;k++)
 //			System.out.println(arr_value[k]);
 		
