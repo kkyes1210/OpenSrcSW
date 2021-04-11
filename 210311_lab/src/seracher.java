@@ -27,7 +27,7 @@ import org.xml.sax.SAXException;
 
 public class seracher {
 	
-	public static void CalcSim(ArrayList<String> r, double[] a_r) {
+	public static void InnerProduct(ArrayList<String> r, double[] a_r) {
 		for(int k=0;k<r.size();k=k+2) {
 			//arr_value[Integer.parseInt(row.get(k))]=Math.round(arr_value[Integer.parseInt(row.get(k))]*100)/100.0+Math.round(Double.parseDouble(row.get(k+1))*100)/100.0;
 			a_r[Integer.parseInt(r.get(k))]=a_r[Integer.parseInt(r.get(k))]+Double.parseDouble(r.get(k+1));
@@ -68,7 +68,7 @@ public class seracher {
 			if(word.contains(key)) {
 				//System.out.println(key+value);
 				ArrayList<String> row=(ArrayList<String>) value;
-				CalcSim(row,arr_value);
+				InnerProduct(row,arr_value);
 				for(int k=0;k<row.size();k=k+2) {
 					
 					d_i[Integer.parseInt(row.get(k))]++;
