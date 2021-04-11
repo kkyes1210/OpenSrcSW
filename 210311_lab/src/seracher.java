@@ -27,7 +27,12 @@ import org.xml.sax.SAXException;
 
 public class seracher {
 	
-	public static void CalcSim2(double[] a_r,Iterator<String> its,HashMap hm,ArrayList<String> w) {
+	public static void CalcSim(double[] a_r,Iterator<String> its,HashMap hm,ArrayList<String> w) {
+		
+		double[] v= {0,0,0,0,0}; //inner product
+		double[] d_v= {0,0,0,0,0};
+		int[] d_i= {0,0,0,0,0};
+		
 		while(its.hasNext()) {
 			String key=its.next();
 			Object value=hm.get(key);
@@ -37,11 +42,17 @@ public class seracher {
 				//System.out.println(key+value);
 				ArrayList<String> row=(ArrayList<String>) value;
 				for(int k=0;k<row.size();k=k+2) {
-					//arr_value[Integer.parseInt(row.get(k))]=Math.round(arr_value[Integer.parseInt(row.get(k))]*100)/100.0+Math.round(Double.parseDouble(row.get(k+1))*100)/100.0;
-					a_r[Integer.parseInt(row.get(k))]=a_r[Integer.parseInt(row.get(k))]+Double.parseDouble(row.get(k+1));
-					a_r[Integer.parseInt(row.get(k))]=Math.round(a_r[Integer.parseInt(row.get(k))]*100)/100.0;
+					v[Integer.parseInt(row.get(k))]=v[Integer.parseInt(row.get(k))]+Double.parseDouble(row.get(k+1));
+					//v[Integer.parseInt(row.get(k))]=Math.round(v[Integer.parseInt(row.get(k))]*100)/100.0;
+					
+					d_i[Integer.parseInt(row.get(k))]++;
+					d_v[Integer.parseInt(row.get(k))]=d_v[Integer.parseInt(row.get(k))]+Math.pow(Double.parseDouble(row.get(k+1)), 2);
 				}
 			}
+		}
+		for(int i=0;i<5;i++) {
+			if(v[i]!=0) 
+				a_r[i]=v[i]/((Math.sqrt(d_v[i]))*(Math.sqrt(d_i[i])));
 		}
 	}
 	
